@@ -1,2 +1,20 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+
+Get-AzNetworkSecurityGroup | foreach-object {$_} | select-object | Export-CSV -Path .\all-nsgs4.csv
+
+
+
+Import-Csv .\all-nsgs4.csv | ForEach-Object {
+	
+	$ResourceId = $($_.Id)
+	$WorkspaceId = "/subscriptions/xxxxxxx/resourceGroups/HiscInfrastructure/providers/Microsoft.OperationalInsights/workspaces/xxxxxxx"
+	$DiagnosticSettingName = "diagnosticlogs"
+	
+	Set-AzDiagnosticSetting -ResourceId $ResourceId -WorkspaceId /subscriptions/xxxxxxxxx/resourceGroups/HiscInfrastructure/providers/Microsoft.OperationalInsights/workspaces/xxxxxxxxx -Enabled $true
+
+	
+}
+
+
